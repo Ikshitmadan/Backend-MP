@@ -1,7 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-
+var cors = require('cors')
+const auth = require('./routes/authRoute')
 dotenv.config()
 
 // db config
@@ -9,9 +10,15 @@ connectDB();
 
 const app = express();
 
-
 // middlewares
+app.use(cors())
 app.use(express.json());
+
+//api
+app.get('/',(req,res)=>{
+    res.send("hello")
+})
+app.use('/api/auth',auth)
 
 
 
