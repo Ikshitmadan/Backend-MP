@@ -98,3 +98,14 @@ exports.loginController = async (req, res) => {
       });
     }
   };
+
+  exports.getuserController = async (req, res) => {
+    try {
+      let userId = req.user._id;
+      const user = await User.findById(userId).select("-password");
+      res.send(user);
+    } catch (error) {
+      console.log(error.message);
+      res.status(400).send("Internal Server Error");
+    }
+  }

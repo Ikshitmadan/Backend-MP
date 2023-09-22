@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 var cors = require('cors')
 const auth = require('./routes/authRoute')
+const test = require('./middlewares/authMiddleware')
 dotenv.config()
 
 // db config
@@ -14,12 +15,8 @@ const app = express();
 app.use(cors())
 app.use(express.json());
 
-//api
-app.get('/',(req,res)=>{
-    res.send("hello")
-})
+//api 
 app.use('/api/auth',auth)
-
 
 
 const PORT = process.env.PORT || 8080;
