@@ -4,6 +4,8 @@ const connectDB = require('./config/db');
 var cors = require('cors')
 const auth = require('./routes/authRoute')
 const test = require('./middlewares/authMiddleware')
+const { Server } = require('socket.io');
+
 dotenv.config()
 
 // db config
@@ -21,6 +23,35 @@ app.use('/api/auth',auth)
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
+const server=app.listen(PORT, () => {
     console.log(`Server is running at PORT: ${PORT}`)
 })
+
+const io = new Server(server,{
+    // pingTimeout: 60000,
+    cors: {
+      origin: "http://localhost:3000",
+      credentials: true,
+    },
+  });;
+
+io.on('connection',(socket)=>{
+
+
+    console.log(`connected id is ${socket.id}`);
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+      })
+
+      socket.on('message',(messageData)=>{
+        socket.broadcast.emit('recieve', messageData);
+    })
+
+})
+
+
+
+
+
+
