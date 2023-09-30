@@ -64,7 +64,6 @@ socket.broadcast.emit('codeadded', messageData);
     socket.broadcast.emit('inputchange', inputData)
 
 })
-<<<<<<< HEAD
 //webRTC code
 socket.on('room:join',data=>{
   const {username,roomId} = data;
@@ -89,9 +88,6 @@ socket.on('user:call',({to, offer})=>
     io.to(to).emit('peer:nego:final',{from:socket.id,ans})
     
   })
-=======
-
->>>>>>> 5a1767406228b18c868eead92fd2e80d93423972
 })
 
 
