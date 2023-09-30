@@ -48,6 +48,23 @@ io.on('connection',(socket)=>{
         socket.broadcast.emit('recieve', messageData);
     })
 
+    socket.on('codechange',(messageData)=>{
+
+      console.log(messageData.code);
+socket.broadcast.emit('codeadded', messageData);
+    })
+
+
+    socket.on('outputchange',(outputData)=>{
+
+      socket.broadcast.emit('outputchange', outputData)
+  })
+
+  socket.on('inputchange',(inputData)=>{
+    socket.broadcast.emit('inputchange', inputData)
+
+})
+
 })
 
 
